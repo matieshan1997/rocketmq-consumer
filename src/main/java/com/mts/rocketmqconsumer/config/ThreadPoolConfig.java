@@ -1,10 +1,11 @@
 package com.mts.rocketmqconsumer.config;
 
+import cn.hippo4j.starter.core.DynamicThreadPool;
 import cn.hippo4j.starter.toolkit.thread.ThreadPoolBuilder;
-import cn.hippo4j.starter.wrapper.DynamicThreadPoolWrapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
@@ -15,17 +16,12 @@ import java.util.concurrent.ThreadPoolExecutor;
 @Configuration
 public class ThreadPoolConfig {
 
-    public static final String MESSAGE_PRODUCE = "message-produce";
 
-    public static final String MESSAGE_CONSUME = "message-consume";
-
-    @Bean
-    public DynamicThreadPoolWrapper messageCenterDynamicThreadPool(){
-        return new DynamicThreadPoolWrapper(MESSAGE_CONSUME);
-    }
+    public static final String MESSAGE_CONSUME = "rocketmq-consume";
 
     @Bean
+    @DynamicThreadPool
     public ThreadPoolExecutor dynamicThreadPoolExecutor(){
-        return ThreadPoolBuilder.builder().threadFactory(MESSAGE_PRODUCE).dynamicPool().build();
+        return ThreadPoolBuilder.builder().corePoolSize(5).maxPoolNum(10).workQueue(new LinkedBlockingQueue(100)).threadFactory(MESSAGE_CONSUME).dynamicPool().build();
     }
 }
