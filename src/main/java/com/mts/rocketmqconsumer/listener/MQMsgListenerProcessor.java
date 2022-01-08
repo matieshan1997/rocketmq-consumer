@@ -35,7 +35,7 @@ public class MQMsgListenerProcessor implements MessageListenerConcurrently {
         log.info("MQ消息topic={},tags={},key={},消息内容={}", topic,tags,keys,body);
         poolExecutor.execute(()->{
             try {
-                Thread.sleep(10000);
+                Thread.sleep(8000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
