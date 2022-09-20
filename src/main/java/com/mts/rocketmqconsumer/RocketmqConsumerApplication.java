@@ -4,6 +4,9 @@ import cn.hippo4j.starter.enable.EnableDynamicThreadPool;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * dev
+ */
 @SpringBootApplication
 @EnableDynamicThreadPool
 public class RocketmqConsumerApplication {
